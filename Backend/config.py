@@ -1,7 +1,8 @@
 from dotenv import load_dotenv
-load_dotenv()
 import os
 
+load_dotenv()
+
 class Config:
-    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL", "postgresql://simutrader:yourpassword@localhost/simutrade")
+    SQLALCHEMY_DATABASE_URI = os.environ["DATABASE_URL"]  # Raises KeyError if missing
     SQLALCHEMY_TRACK_MODIFICATIONS = False

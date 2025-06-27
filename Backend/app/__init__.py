@@ -11,8 +11,11 @@ def create_app():
     db.init_app(app)
     CORS(app)
     from app.routes.stock import stock_bp
-    app.register_blueprint(stock_bp, url_prefix='/api/')
-
+    from app.routes.transaction import transaction_bp
+    from app.routes.portfolio import portfolio_bp
+    app.register_blueprint(stock_bp, url_prefix='/api')
+    app.register_blueprint(transaction_bp, url_prefix='/api')
+    app.register_blueprint(portfolio_bp, url_prefix='/api')
     with app.app_context():
         from app.models.user import User
         from app.models.portfolio import Portfolio
