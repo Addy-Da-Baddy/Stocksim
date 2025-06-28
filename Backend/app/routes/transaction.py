@@ -4,10 +4,17 @@ from app.models.user import User
 from app.models.transaction import Transaction
 from app.models.portfolio import Portfolio
 from app.services.stock_service import get_stock_price
+from app.utils.market import is_market_open
 from datetime import datetime
 
 transaction_bp = Blueprint('transaction_bp', __name__)
 
+def is_market_open_safe(tz):
+    try:
+        result = is_market_open(tz)
+        return result.get("market_open", False)
+    except Exception:
+        return False
 
 @transaction_bp.route('/transaction/buy', methods=['POST'])
 def buy_stock():
@@ -15,32 +22,36 @@ def buy_stock():
     user_id = data.get('user_id')
     symbol = data.get('symbol')
     shares = float(data.get('shares', 0))
+    tz = data.get('tz')
 
-
-    if not all([user_id, symbol, shares]) or shares <= 0:
+    if not all([user_id, symbol, shares, tz]) or shares <= 0:
         return jsonify({'error': 'Missing or invalid data'}), 400
-    
+
+    if not is_market_open_safe(tz):
+        return jsonify({'error': f'Market is closed in timezone {tz}'}), 403
+
     user = User.query.get(user_id)
     if not user:
         return jsonify({'error': 'User not found'}), 404
-    
+
     stock_data = get_stock_price(symbol)
     if 'error' in stock_data:
         return jsonify(stock_data), 500
-    
+
     price = stock_data['price']
-    total_cost = price*shares
+    total_cost = price * shares
 
     if user.balance < total_cost:
         return jsonify({'error': 'Insufficient balance'}), 400
-    
-    user.balance -= total_cost
 
+    # Update portfolio
     portfolio = Portfolio.query.filter_by(user_id=user_id, symbol=symbol.upper()).first()
     if portfolio:
         new_total_shares = portfolio.shares + shares
+        portfolio.avg_price = (
+            (portfolio.avg_price * portfolio.shares) + (price * shares)
+        ) / new_total_shares
         portfolio.shares = new_total_shares
-        portfolio.avg_price = ((portfolio.avg_price * portfolio.shares) + (price * shares)) / new_total_shares
     else:
         portfolio = Portfolio(
             user_id=user_id,
@@ -50,25 +61,29 @@ def buy_stock():
         )
         db.session.add(portfolio)
 
+    # Update balance and add transaction
+    user.balance -= total_cost
     transaction = Transaction(
         user_id=user_id,
         symbol=symbol.upper(),
         shares=shares,
         price=price,
-        type = 'BUY',
+        type='BUY',
         timestamp=datetime.utcnow()
     )
+
+    db.session.add(user)
     db.session.add(transaction)
     db.session.commit()
 
     return jsonify({
         'message': 'Stock purchased successfully',
         'symbol': symbol.upper(),
-        'new_balance': user.balance,
+        'new_balance': round(user.balance, 2),
         'portfolio': {
             'symbol': portfolio.symbol,
-            'shares': portfolio.shares,
-            'avg_price': portfolio.avg_price
+            'shares': round(portfolio.shares, 2),
+            'avg_price': round(portfolio.avg_price, 2)
         }
     }), 200
 
@@ -77,10 +92,14 @@ def sell_stock():
     data = request.json
     user_id = data.get('user_id')
     symbol = data.get('symbol')
-    shares = float(data.get('shares'))
+    shares = float(data.get('shares', 0))
+    tz = data.get('tz')
 
-    if not all([user_id, symbol, shares]) or shares <= 0:
+    if not all([user_id, symbol, shares, tz]) or shares <= 0:
         return jsonify({'error': 'Missing or invalid data'}), 400
+
+    if not is_market_open_safe(tz):
+        return jsonify({'error': f'Market is closed in timezone {tz}'}), 403
 
     user = User.query.get(user_id)
     if not user:
@@ -96,16 +115,12 @@ def sell_stock():
 
     price = stock_data['price']
     total_earned = price * shares
-
-    # Update balance
     user.balance += total_earned
 
-    # Update portfolio
     portfolio.shares -= shares
     if portfolio.shares == 0:
-        db.session.delete(portfolio)  # remove entry if no shares left
+        db.session.delete(portfolio)
 
-    # Log transaction
     transaction = Transaction(
         user_id=user_id,
         symbol=symbol.upper(),
@@ -114,14 +129,12 @@ def sell_stock():
         type='SELL',
         timestamp=datetime.utcnow()
     )
+
+    db.session.add(user)
     db.session.add(transaction)
     db.session.commit()
 
     return jsonify({
         'message': 'Stock sold successfully',
-        'new_balance': user.balance
+        'new_balance': round(user.balance, 2)
     }), 200
-
-
-
-

@@ -42,3 +42,45 @@ def get_portfolio(user_id):
         'user_id': user_id,
         'portfolio': portfolio_data
     }), 200
+
+
+@portfolio_bp.route('/portfolio/value/<int:user_id>', methods=['GET'])
+def get_portfolio_value(user_id):
+    user = User.query.get(user_id)
+    if not user:
+        return jsonify({'message': 'User not found'}), 404
+    portfolio_entries = Portfolio.query.filter_by(user_id=user_id).all()
+    total_value = 0.0
+    total_cost = 0.0
+    breakdown = []
+
+    for entry in portfolio_entries:
+        stock_data = get_stock_price(entry.symbol)
+        if 'error' in stock_data:
+            return jsonify({'error': f"Error fetching price for {entry.symbol}: {stock_data['error']}"}), 500
+        
+        current_price = stock_data.get('price')
+        market_value = current_price * entry.shares if current_price else 0.0
+        cost = entry.avg_price * entry.shares
+        profit = market_value - cost
+        total_value += market_value
+        total_cost += cost
+        breakdown.append({
+            'symbol': entry.symbol,
+            'shares': entry.shares,
+            'avg_price': round(entry.avg_price, 2),
+            'current_price': round(current_price, 2) if current_price else None,
+            'market_value': round(market_value, 2),
+            'profit': round(profit, 2)
+        })
+
+    return jsonify({
+        'user_id': user_id,
+        'balance': round(user.balance, 2),
+        'portfolio_value': round(total_value, 2),
+        'total_cost_basis': round(total_cost, 2),
+        'net_gain_loss': round(total_value - total_cost, 2),
+        'total_equity': round(user.balance + total_value, 2),
+        'holdings': breakdown
+    }), 200
+
