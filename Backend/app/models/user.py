@@ -13,3 +13,7 @@ class User(db.Model):
 
     transactions = db.relationship('Transaction', backref='user', lazy=True)
     portfolio_entries = db.relationship('Portfolio', backref='user', lazy=True)
+    community_score = db.Column(db.Integer, default=0)
+
+
+    

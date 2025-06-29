@@ -1,35 +1,85 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Dashboard from './pages/Dashboard';
+import Trading from './pages/Trading';
+import Portfolio from './pages/Portfolio';
+import Navbar from './components/Navbar';
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Check if user is logged in (check localStorage for token)
+    const token = localStorage.getItem('token');
+    const userData = localStorage.getItem('user');
+    
+    if (token && userData) {
+      setIsAuthenticated(true);
+      setUser(JSON.parse(userData));
+    }
+    setLoading(false);
+  }, []);
+
+  const login = (userData, token) => {
+    localStorage.setItem('token', token);
+    localStorage.setItem('user', JSON.stringify(userData));
+    setIsAuthenticated(true);
+    setUser(userData);
+  };
+
+  const logout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    setIsAuthenticated(false);
+    setUser(null);
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
+      </div>
+    );
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <Router>
+      <div className="min-h-screen bg-gray-50">
+        {isAuthenticated && <Navbar user={user} onLogout={logout} />}
+        <Routes>
+          <Route 
+            path="/login" 
+            element={isAuthenticated ? <Navigate to="/dashboard" /> : <Login onLogin={login} />} 
+          />
+          <Route 
+            path="/register" 
+            element={isAuthenticated ? <Navigate to="/dashboard" /> : <Register onRegister={login} />} 
+          />
+          <Route 
+            path="/dashboard" 
+            element={isAuthenticated ? <Dashboard user={user} /> : <Navigate to="/login" />} 
+          />
+          <Route 
+            path="/trading" 
+            element={isAuthenticated ? <Trading user={user} /> : <Navigate to="/login" />} 
+          />
+          <Route 
+            path="/portfolio" 
+            element={isAuthenticated ? <Portfolio user={user} /> : <Navigate to="/login" />} 
+          />
+          <Route 
+            path="/" 
+            element={<Navigate to={isAuthenticated ? "/dashboard" : "/login"} />} 
+          />
+        </Routes>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </Router>
+  );
 }
 
-export default App
+export default App;

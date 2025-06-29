@@ -138,3 +138,24 @@ def sell_stock():
         'message': 'Stock sold successfully',
         'new_balance': round(user.balance, 2)
     }), 200
+
+@transaction_bp.route('/transaction/history/<int:user_id>', methods=['GET'])
+def transaction_history(user_id):
+    transactions = Transaction.query.filter_by(user_id=user_id).order_by(Transaction.timestamp.desc()).all()
+    if not transactions:
+        return jsonify({'message': 'No transactions found for this user'}), 404
+    history = []
+    for transaction in transactions:
+        symbol = transaction.symbol
+        type  = transaction.type
+        shares = transaction.shares
+        price = round(transaction.price, 2)
+        timestamp = transaction.timestamp.isoformat()
+        history.append({
+            'symbol': symbol,
+            'type': type,
+            'shares': shares,
+            'price': price,
+            'timestamp': timestamp
+        })
+    return jsonify(history), 200

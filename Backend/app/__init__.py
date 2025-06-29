@@ -14,10 +14,18 @@ def create_app():
     from app.routes.transaction import transaction_bp
     from app.routes.portfolio import portfolio_bp
     from app.routes.auth import auth_bp
+    from app.routes.market import market_bp
+    from app.routes.community import community_bp
+    from app.routes.leaderboard import leaderboard_bp
+    from app.routes.news import news_bp
     app.register_blueprint(stock_bp, url_prefix='/api')
     app.register_blueprint(transaction_bp, url_prefix='/api')
     app.register_blueprint(portfolio_bp, url_prefix='/api')
     app.register_blueprint(auth_bp, url_prefix='/api')
+    app.register_blueprint(market_bp, url_prefix='/api')
+    app.register_blueprint(community_bp, url_prefix='/api')
+    app.register_blueprint(leaderboard_bp, url_prefix='/api')
+    app.register_blueprint(news_bp, url_prefix='/api')
     with app.app_context():
         from app.models.user import User
         from app.models.portfolio import Portfolio

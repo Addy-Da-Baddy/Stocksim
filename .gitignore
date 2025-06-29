@@ -195,3 +195,7 @@ cython_debug/
 
 # Ignore API test script
 /test_api.py
+
+# Local data generation scripts (not needed in production)
+Backend/via_direct.py
+Backend/via_requests.py
