@@ -199,3 +199,7 @@ cython_debug/
 # Local data generation scripts (not needed in production)
 Backend/via_direct.py
 Backend/via_requests.py
+Backend/admin_script.py
+Backend/test_admin.py
+Backend/config.py
+Backend/populate_learning_articles.py
