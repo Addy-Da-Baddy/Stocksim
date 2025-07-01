@@ -1,0 +1,27 @@
+databases:
+  - name: simutrade
+    databaseName: simutrade
+    user: simstock_dev
+    plan: free
+
+services:
+  - type: web
+    name: simstock-backend
+    runtime: python
+    repo: https://github.com/Addy-Da-Baddy/Stocksim.git
+    branch: main
+    healthCheckPath: /api/market/status
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: simutrade
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: JWT_SECRET_KEY
+        generateValue: true
+    buildFilter:
+      paths:
+      - Backend/**
+    buildCommand: "pip install -r Backend/requirements.txt"
+    startCommand: "gunicorn --chdir Backend wsgi:app"
