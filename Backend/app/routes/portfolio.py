@@ -1,15 +1,17 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, jsonify
 from app import db
 from app.models.user import User
-from app.models.transaction import Transaction
 from app.models.portfolio import Portfolio
 from app.services.stock_service import get_stock_price
-from datetime import datetime
+from app.utils.auth import user_required
+from flask_jwt_extended import get_jwt_identity
 
 portfolio_bp = Blueprint('portfolio_bp', __name__)
 
-@portfolio_bp.route('/portfolio/<int:user_id>', methods=['GET'])
-def get_portfolio(user_id):
+@portfolio_bp.route('/portfolio', methods=['GET'])
+@user_required
+def get_portfolio():
+    user_id = get_jwt_identity()
     portfolio_entries = Portfolio.query.filter_by(user_id=user_id).all()
     if not portfolio_entries:
         return jsonify({'message': 'No portfolio entries found for this user'}), 404
@@ -17,12 +19,11 @@ def get_portfolio(user_id):
     portfolio_data = []
     for entry in portfolio_entries:
         stock_data = get_stock_price(entry.symbol)
-        if 'error' in stock_data:
-            return jsonify({'error': f"Error fetching price for {entry.symbol}: {stock_data['error']}"}), 500
-
         market_price = stock_data.get('price')
-        if market_price is None:
-            return jsonify({'error': f'Market price not available for symbol: {entry.symbol}'}), 500
+
+        if not market_price:
+            # Skip if price is not available, or use a fallback
+            market_price = entry.avg_price
 
         market_value = entry.shares * market_price
         profit = round(market_value - (entry.avg_price * entry.shares), 2)
@@ -44,11 +45,14 @@ def get_portfolio(user_id):
     }), 200
 
 
-@portfolio_bp.route('/portfolio/value/<int:user_id>', methods=['GET'])
-def get_portfolio_value(user_id):
+@portfolio_bp.route('/portfolio/value', methods=['GET'])
+@user_required
+def get_portfolio_value():
+    user_id = get_jwt_identity()
     user = User.query.get(user_id)
-    if not user:
+    if not user: # Should be handled by @user_required
         return jsonify({'message': 'User not found'}), 404
+
     portfolio_entries = Portfolio.query.filter_by(user_id=user_id).all()
     total_value = 0.0
     total_cost = 0.0
@@ -56,11 +60,12 @@ def get_portfolio_value(user_id):
 
     for entry in portfolio_entries:
         stock_data = get_stock_price(entry.symbol)
-        if 'error' in stock_data:
-            return jsonify({'error': f"Error fetching price for {entry.symbol}: {stock_data['error']}"}), 500
-        
         current_price = stock_data.get('price')
-        market_value = current_price * entry.shares if current_price else 0.0
+        
+        if not current_price:
+            continue # Skip if price is not available
+
+        market_value = current_price * entry.shares
         cost = entry.avg_price * entry.shares
         profit = market_value - cost
         total_value += market_value
@@ -69,7 +74,7 @@ def get_portfolio_value(user_id):
             'symbol': entry.symbol,
             'shares': entry.shares,
             'avg_price': round(entry.avg_price, 2),
-            'current_price': round(current_price, 2) if current_price else None,
+            'current_price': round(current_price, 2),
             'market_value': round(market_value, 2),
             'profit': round(profit, 2)
         })
