@@ -4,6 +4,7 @@ from app.models.user import User
 from app.models.community_shop import CommunityShop
 from app.models.community_purchase import CommunityPurchase
 from datetime import datetime
+from flask_jwt_extended import jwt_required, get_jwt_identity
 
 community_bp = Blueprint('community_bp', __name__)
 
@@ -21,12 +22,13 @@ def view_shop():
     return jsonify(data), 200
 
 @community_bp.route('/community/purchase', methods=['POST'])
+@jwt_required()
 def buy_item():
+    current_user_id = get_jwt_identity()
     data  = request.json
-    user_id = data.get('user_id')
     item_id = data.get('item_id')
 
-    user = User.query.get(user_id)
+    user = User.query.get(current_user_id)
     item = CommunityShop.query.get(item_id)
 
     if not user or not item:
@@ -35,7 +37,7 @@ def buy_item():
     if not item.available:
         return jsonify({'error': 'Item is not available'}), 400
     
-    existing = CommunityPurchase.query.filter_by(user_id=user_id, item_id=item_id).first()
+    existing = CommunityPurchase.query.filter_by(user_id=current_user_id, item_id=item_id).first()
     if existing:
         return jsonify({'error': 'Item already purchased'}), 400
     
@@ -45,7 +47,7 @@ def buy_item():
     user.balance -= item.cost
     user.community_score += item.score_value
     
-    purchase = CommunityPurchase(user_id=user_id, item_id=item_id, timestamp=datetime.utcnow())
+    purchase = CommunityPurchase(user_id=current_user_id, item_id=item_id, timestamp=datetime.utcnow())
     db.session.add(purchase)
     db.session.commit()
 
@@ -57,13 +59,15 @@ def buy_item():
         'user_community_score': user.community_score
     }), 200
 
-@community_bp.route('/community/myitems/<int:user_id>', methods=['GET'])
-def get_user_items(user_id):
-    user = User.query.get(user_id)
+@community_bp.route('/community/myitems', methods=['GET'])
+@jwt_required()
+def get_user_items():
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id)
     if not user:
         return jsonify({'error': 'User not found'}), 404
 
-    purchases = db.session.query(CommunityPurchase, CommunityShop).join(CommunityShop).filter(CommunityPurchase.user_id == user_id).all()
+    purchases = db.session.query(CommunityPurchase, CommunityShop).join(CommunityShop).filter(CommunityPurchase.user_id == current_user_id).all()
 
     if not purchases:
         return jsonify([]), 200

@@ -3,6 +3,7 @@ from app import db
 from app.models.user import User
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import create_access_token
+from datetime import datetime
 
 auth_bp = Blueprint('auth_bp', __name__)
 
@@ -12,8 +13,13 @@ def register():
     username = data.get('username')
     password = data.get('password')
     email = data.get('email')
+    first_name = data.get('first_name')
+    last_name = data.get('last_name')
+    phone_number = data.get('phone_number')
+    date_of_birth_str = data.get('date_of_birth')
+    address = data.get('address')
 
-    if not all([username, password, email]):
+    if not all([username, password, email, first_name, last_name, phone_number, date_of_birth_str, address]):
         return jsonify({'error': 'Missing required fields'}), 400
 
     if User.query.filter_by(username=username).first():
@@ -21,8 +27,23 @@ def register():
     if User.query.filter_by(email=email).first():
         return jsonify({'error': 'Email already exists'}), 400
 
+    try:
+        date_of_birth = datetime.strptime(date_of_birth_str, '%Y-%m-%d').date()
+    except ValueError:
+        return jsonify({'error': 'Invalid date format for date_of_birth. Please use YYYY-MM-DD.'}), 400
+
     hashed_password = generate_password_hash(password)
-    new_user = User(username=username, password_hash=hashed_password, email=email, balance=100000)
+    new_user = User(
+        username=username, 
+        password_hash=hashed_password, 
+        email=email, 
+        balance=100000, 
+        first_name=first_name, 
+        last_name=last_name, 
+        phone_number=phone_number, 
+        date_of_birth=date_of_birth, 
+        address=address
+    )
     db.session.add(new_user)
     db.session.commit()
 

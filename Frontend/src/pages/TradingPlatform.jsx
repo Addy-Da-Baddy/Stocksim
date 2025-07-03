@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { FaSearch, FaArrowUp, FaArrowDown, FaTimes, FaChartLine, FaFire, FaStar, FaRocket } from 'react-icons/fa';
+import { FaSearch, FaArrowUp, FaArrowDown, FaTimes, FaChartLine, FaFire, FaStar, FaRocket, FaArrowLeft } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 import api from '../api';
+import { useNavigate } from 'react-router-dom';
 
 const stockCategories = {
   'Technology': ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'NVDA'],
@@ -288,6 +289,7 @@ const TradingPlatform = () => {
   const [searchResult, setSearchResult] = useState(null);
   const [searchError, setSearchError] = useState(null);
   const [autocompleteResults, setAutocompleteResults] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchStockData = async () => {
@@ -367,34 +369,44 @@ const TradingPlatform = () => {
 
       <div className="max-w-7xl mx-auto relative z-10">
         <motion.header 
-          className="mb-12 flex items-center space-x-6"
+          className="mb-12 flex items-center justify-between"
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          >
-            <FaChartLine className="text-6xl text-green-400" />
-          </motion.div>
-          <div>
-            <motion.h1 
-              className="text-6xl font-bold bg-gradient-to-r from-green-400 via-blue-400 to-purple-400 bg-clip-text text-transparent"
-              animate={{ backgroundPosition: ['0%', '100%'] }}
-              transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+          <div className="flex items-center space-x-6">
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
             >
-              Trading Platform
-            </motion.h1>
-            <motion.p 
-              className="text-xl text-gray-400 mt-2"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
-            >
-              Your gateway to the stock market revolution.
-            </motion.p>
+              <FaChartLine className="text-6xl text-green-400" />
+            </motion.div>
+            <div>
+              <motion.h1 
+                className="text-6xl font-bold bg-gradient-to-r from-green-400 via-blue-400 to-purple-400 bg-clip-text text-transparent"
+                animate={{ backgroundPosition: ['0%', '100%'] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+              >
+                Trading Platform
+              </motion.h1>
+              <motion.p 
+                className="text-xl text-gray-400 mt-2"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.5 }}
+              >
+                Your gateway to the stock market revolution.
+              </motion.p>
+            </div>
           </div>
+          <motion.button
+            onClick={() => navigate(-1)}
+            className="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-full p-4 text-white hover:bg-gray-700/70 transition-colors"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <FaArrowLeft size={24} />
+          </motion.button>
         </motion.header>
 
         <motion.div 

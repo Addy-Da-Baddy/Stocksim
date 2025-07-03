@@ -1,2 +1,0 @@
-source: Error encountered while sourcing file “venv/bin/activate.fish”:
-source: No such file or directory

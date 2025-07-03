@@ -5,6 +5,13 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
 import TradingPlatform from './pages/TradingPlatform';
+import CommunityShop from './pages/CommunityShop';
+import MyItemsPage from './pages/MyItemsPage';
+import Leaderboard from './pages/Leaderboard';
+import MyProfile from './pages/MyProfile';
+import Forecast from './pages/Forecast';
+import News from './pages/News'; // Import News component
+import FinancialArticles from './pages/FinancialArticles';
 import api from './api';
 
 function App() {
@@ -22,6 +29,13 @@ function App() {
       <Route path="/signup" element={<Signup />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/trading" element={<TradingPlatform />} />
+      <Route path="/community-shop" element={<CommunityShop />} />
+      <Route path="/my-items" element={<MyItemsPage />} />
+      <Route path="/leaderboard" element={<Leaderboard />} />
+      <Route path="/my-profile" element={<MyProfile />} />
+      <Route path="/forecast" element={<Forecast />} />
+      <Route path="/news" element={<News />} />
+      <Route path="/financial-articles" element={<FinancialArticles />} />
     </Routes>
   );
 }
@@ -255,7 +269,7 @@ function LandingPage() {
                 <span>Start Trading Now</span>
                 <span className="transform group-hover:translate-x-1 transition-transform duration-300"><FaRocket /></span>
               </span>
-              <div className="absolute inset-0 bg-gradient-to-r from-green-600 via-green-700 to-green-800 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-green-600 to-green-700 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 translate-x-full group-hover:translate-x-[-200%] transition-transform duration-1000"></div>
               </div>
