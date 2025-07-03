@@ -8,6 +8,6 @@ class CommunityPurchase(db.Model):
     item_id = db.Column(db.Integer, db.ForeignKey('community_shop.id'), nullable=False)
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
 
-    user = db.relationship('User', backref='community_purchases', lazy=True)
+    user = db.relationship('User', back_populates='community_purchases', lazy=True)
     item = db.relationship('CommunityShop', backref='purchases', lazy=True)
 

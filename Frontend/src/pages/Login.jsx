@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FaEnvelope, FaLock } from 'react-icons/fa';
 import api from '../api';
@@ -7,13 +7,18 @@ import api from '../api';
 export default function Login() {
   const [form, setForm] = useState({ email: '', password: '' });
   const [msg, setMsg] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await api.post('/api/login/email', form);
-      setMsg(`Welcome ${res.data.username}, Balance: $${res.data.balance}`);
-      // TODO: Handle successful login (e.g., redirect, save token)
+      const res = await api.post('/login/email', form);
+      // Save the token
+      localStorage.setItem('token', res.data.access_token);
+      // Set token for future API calls
+      api.defaults.headers.common['Authorization'] = `Bearer ${res.data.access_token}`;
+      // Redirect to dashboard
+      navigate('/dashboard');
     } catch (err) {
       setMsg(err.response?.data?.error || 'Login failed');
     }

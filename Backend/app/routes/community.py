@@ -4,8 +4,6 @@ from app.models.user import User
 from app.models.community_shop import CommunityShop
 from app.models.community_purchase import CommunityPurchase
 from datetime import datetime
-from app.utils.auth import user_required
-from flask_jwt_extended import get_jwt_identity
 
 community_bp = Blueprint('community_bp', __name__)
 
@@ -23,10 +21,9 @@ def view_shop():
     return jsonify(data), 200
 
 @community_bp.route('/community/purchase', methods=['POST'])
-@user_required
 def buy_item():
     data  = request.json
-    user_id = get_jwt_identity()
+    user_id = data.get('user_id')
     item_id = data.get('item_id')
 
     user = User.query.get(user_id)
@@ -60,10 +57,8 @@ def buy_item():
         'user_community_score': user.community_score
     }), 200
 
-@community_bp.route('/community/my-items', methods=['GET'])
-@user_required
-def get_user_items():
-    user_id = get_jwt_identity()
+@community_bp.route('/community/myitems/<int:user_id>', methods=['GET'])
+def get_user_items(user_id):
     user = User.query.get(user_id)
     if not user:
         return jsonify({'error': 'User not found'}), 404

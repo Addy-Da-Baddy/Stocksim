@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FaUser, FaEnvelope, FaLock } from 'react-icons/fa';
 import api from '../api';
@@ -7,6 +7,7 @@ import api from '../api';
 export default function SignUp() {
     const [form, setForm] = useState({username: '', email: '', password: ''});
     const [msg, setMsg] = useState('');
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         setForm({...form, [e.target.name]: e.target.value});
@@ -15,9 +16,10 @@ export default function SignUp() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await api.post('/api/register', form);
+            const res = await api.post('/register', form);
             setMsg(`Welcome ${res.data.username}, Balance: $${res.data.balance}`);
             setForm({username: '', email: '', password: ''}); // Reset form
+            navigate('/login'); // Redirect to login page
         }
         catch (err) {
             setMsg(err.response?.data?.error || 'Registration failed');

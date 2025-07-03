@@ -1,29 +1,28 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, request, jsonify
 from app import db
 from app.models.user import User
+from app.models.transaction import Transaction
 from app.models.portfolio import Portfolio
 from app.services.stock_service import get_stock_price
-from app.utils.auth import user_required
-from flask_jwt_extended import get_jwt_identity
+from datetime import datetime
+from flask_jwt_extended import jwt_required, get_jwt_identity
 
 portfolio_bp = Blueprint('portfolio_bp', __name__)
 
 @portfolio_bp.route('/portfolio', methods=['GET'])
-@user_required
+@jwt_required()
 def get_portfolio():
     user_id = get_jwt_identity()
     portfolio_entries = Portfolio.query.filter_by(user_id=user_id).all()
-    if not portfolio_entries:
-        return jsonify({'message': 'No portfolio entries found for this user'}), 404
-
     portfolio_data = []
     for entry in portfolio_entries:
         stock_data = get_stock_price(entry.symbol)
-        market_price = stock_data.get('price')
-
-        if not market_price:
-            # Skip if price is not available, or use a fallback
-            market_price = entry.avg_price
+        if 'error' in stock_data:
+            # In a real app, you might want to handle this more gracefully
+            # For now, we can skip the entry or use a placeholder
+            market_price = entry.avg_price # fallback to average price
+        else:
+            market_price = stock_data.get('price')
 
         market_value = entry.shares * market_price
         profit = round(market_value - (entry.avg_price * entry.shares), 2)
@@ -46,11 +45,11 @@ def get_portfolio():
 
 
 @portfolio_bp.route('/portfolio/value', methods=['GET'])
-@user_required
+@jwt_required()
 def get_portfolio_value():
     user_id = get_jwt_identity()
     user = User.query.get(user_id)
-    if not user: # Should be handled by @user_required
+    if not user:
         return jsonify({'message': 'User not found'}), 404
 
     portfolio_entries = Portfolio.query.filter_by(user_id=user_id).all()
@@ -60,12 +59,12 @@ def get_portfolio_value():
 
     for entry in portfolio_entries:
         stock_data = get_stock_price(entry.symbol)
-        current_price = stock_data.get('price')
+        if 'error' in stock_data:
+            current_price = entry.avg_price # fallback
+        else:
+            current_price = stock_data.get('price')
         
-        if not current_price:
-            continue # Skip if price is not available
-
-        market_value = current_price * entry.shares
+        market_value = current_price * entry.shares if current_price else 0.0
         cost = entry.avg_price * entry.shares
         profit = market_value - cost
         total_value += market_value
@@ -74,7 +73,7 @@ def get_portfolio_value():
             'symbol': entry.symbol,
             'shares': entry.shares,
             'avg_price': round(entry.avg_price, 2),
-            'current_price': round(current_price, 2),
+            'current_price': round(current_price, 2) if current_price else None,
             'market_value': round(market_value, 2),
             'profit': round(profit, 2)
         })
@@ -83,9 +82,20 @@ def get_portfolio_value():
         'user_id': user_id,
         'balance': round(user.balance, 2),
         'portfolio_value': round(total_value, 2),
-        'total_cost_basis': round(total_cost, 2),
+        'total_cost_basis': round(total_cost, 2) if total_cost > 0 else 0,
         'net_gain_loss': round(total_value - total_cost, 2),
         'total_equity': round(user.balance + total_value, 2),
-        'holdings': breakdown
+        'holdings': breakdown,
+        'user_details': {
+            'username': user.username,
+            'first_name': user.first_name,
+            'last_name': user.last_name,
+            'email': user.email,
+            'phone_number': user.phone_number,
+            'date_of_birth': user.date_of_birth.isoformat() if user.date_of_birth else None,
+            'address': user.address,
+            'created_at': user.created_at.isoformat() if user.created_at else None,
+            'community_score': user.community_score
+        }
     }), 200
 

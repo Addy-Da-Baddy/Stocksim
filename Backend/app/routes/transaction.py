@@ -4,22 +4,14 @@ from app.models.user import User
 from app.models.transaction import Transaction
 from app.models.portfolio import Portfolio
 from app.services.stock_service import get_stock_price
-from app.utils.market import is_market_open
 from datetime import datetime
-from app.utils.auth import user_required
-from flask_jwt_extended import get_jwt_identity
+from flask_jwt_extended import jwt_required, get_jwt_identity
 
 transaction_bp = Blueprint('transaction_bp', __name__)
 
-def is_market_open_safe(tz):
-    try:
-        result = is_market_open(tz)
-        return result.get("market_open", False)
-    except Exception:
-        return False
 
 @transaction_bp.route('/transaction/buy', methods=['POST'])
-@user_required
+@jwt_required()
 def buy_stock():
     data = request.json
     user_id = get_jwt_identity()
@@ -27,11 +19,8 @@ def buy_stock():
     shares = float(data.get('shares', 0))
     tz = data.get('tz')
 
-    if not all([symbol, shares, tz]) or shares <= 0:
+    if not all([user_id, symbol, shares, tz]) or shares <= 0:
         return jsonify({'error': 'Missing or invalid data'}), 400
-
-    if not is_market_open_safe(tz):
-        return jsonify({'error': f'Market is closed in timezone {tz}'}), 403
 
     user = User.query.get(user_id)
     if not user:
@@ -90,8 +79,9 @@ def buy_stock():
         }
     }), 200
 
+
 @transaction_bp.route('/transaction/sell', methods=['POST'])
-@user_required
+@jwt_required()
 def sell_stock():
     data = request.json
     user_id = get_jwt_identity()
@@ -99,11 +89,8 @@ def sell_stock():
     shares = float(data.get('shares', 0))
     tz = data.get('tz')
 
-    if not all([symbol, shares, tz]) or shares <= 0:
+    if not all([user_id, symbol, shares, tz]) or shares <= 0:
         return jsonify({'error': 'Missing or invalid data'}), 400
-
-    if not is_market_open_safe(tz):
-        return jsonify({'error': f'Market is closed in timezone {tz}'}), 403
 
     user = User.query.get(user_id)
     if not user:
@@ -143,20 +130,24 @@ def sell_stock():
         'new_balance': round(user.balance, 2)
     }), 200
 
-@transaction_bp.route('/transaction/history', methods=['GET'])
-@user_required
-def transaction_history():
-    user_id = get_jwt_identity()
+
+@transaction_bp.route('/transaction/history/<int:user_id>', methods=['GET'])
+def transaction_history(user_id):
     transactions = Transaction.query.filter_by(user_id=user_id).order_by(Transaction.timestamp.desc()).all()
     if not transactions:
         return jsonify({'message': 'No transactions found for this user'}), 404
     history = []
     for transaction in transactions:
+        symbol = transaction.symbol
+        type  = transaction.type
+        shares = transaction.shares
+        price = round(transaction.price, 2)
+        timestamp = transaction.timestamp.isoformat()
         history.append({
-            'symbol': transaction.symbol,
-            'type': transaction.type,
-            'shares': transaction.shares,
-            'price': round(transaction.price, 2),
-            'timestamp': transaction.timestamp.isoformat()
+            'symbol': symbol,
+            'type': type,
+            'shares': shares,
+            'price': price,
+            'timestamp': timestamp
         })
     return jsonify(history), 200

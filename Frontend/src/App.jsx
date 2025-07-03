@@ -3,7 +3,28 @@ import { Routes, Route, Link } from 'react-router-dom';
 import { FaRocket, FaUsers, FaMoneyBillWave, FaBolt, FaChartBar, FaChartLine, FaTrophy, FaDollarSign } from 'react-icons/fa';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import Dashboard from './pages/Dashboard';
+import TradingPlatform from './pages/TradingPlatform';
 import api from './api';
+
+function App() {
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    }
+  }, []);
+
+  return (
+    <Routes>
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Signup />} />
+      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/trading" element={<TradingPlatform />} />
+    </Routes>
+  );
+}
 
 function LandingPage() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -374,16 +395,6 @@ function LandingPage() {
         }
       `}</style>
     </div>
-  );
-}
-
-function App() {
-  return (
-    <Routes>
-      <Route path="/" element={<LandingPage />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<Signup />} />
-    </Routes>
   );
 }
 

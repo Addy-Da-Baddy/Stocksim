@@ -24,6 +24,7 @@ def create_app():
     from app.routes.admin import admin_bp
     from app.routes.admin_auth import admin_auth
     from app.routes.help import help_bp
+    from app.routes.user import user_bp
 
     app.register_blueprint(stock_bp, url_prefix='/api')
     app.register_blueprint(transaction_bp, url_prefix='/api')
@@ -34,6 +35,7 @@ def create_app():
     app.register_blueprint(leaderboard_bp, url_prefix='/api')
     app.register_blueprint(news_bp, url_prefix='/api')
     app.register_blueprint(help_bp, url_prefix='/api')
+    app.register_blueprint(user_bp, url_prefix='/api')
     app.register_blueprint(admin_bp, url_prefix='/super-secret-admin-zone')
     app.register_blueprint(admin_auth, url_prefix='/super-secret-admin-zone')
     with app.app_context():
