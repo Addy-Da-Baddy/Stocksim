@@ -87,6 +87,36 @@ const learningArticles = [
     title: "Long-Term vs. Short-Term Investing",
     content: "<p>Long-term investing involves holding assets for a year or more, often with a focus on growth, dividends, or interest. Short-term investing involves buying and selling assets within a shorter time frame, such as a year, to make a quick profit. The strategies and risks associated with each are very different, and your choice depends on your financial goals and timeline.</p>",
     external_url: "https://www.forbes.com/advisor/investing/long-term-investing-vs-short-term-investing/"
+  },
+  {
+    id: 15,
+    title: "What is a Mutual Fund?",
+    content: "<p>A mutual fund is a type of financial vehicle made up of a pool of money collected from many investors to invest in securities like stocks, bonds, money market instruments, and other assets. Mutual funds are operated by professional money managers, who allocate the fund\'s assets and attempt to produce capital gains or income for the fund\'s investors. A mutual fund\'s portfolio is structured and maintained to match the investment objectives stated in its prospectus.</p>",
+    external_url: "https://www.investopedia.com/terms/m/mutualfund.asp"
+  },
+  {
+    id: 16,
+    title: "Understanding Market Capitalization",
+    content: "<p>Market capitalization refers to the total dollar market value of a company\'s outstanding shares of stock. Commonly referred to as 'market cap,' it is calculated by multiplying the total number of a company\'s outstanding shares by the current market price of one share. The investment community uses this figure to determine a company\'s size, as opposed to using sales or total asset figures.</p>",
+    external_url: "https://www.investopedia.com/terms/m/marketcapitalization.asp"
+  },
+  {
+    id: 17,
+    title: "The Psychology of Investing",
+    content: "<p>The psychology of investing refers to the various cognitive and emotional factors that can influence investors\' decision-making. Common biases include overconfidence, loss aversion, and herd behavior. Understanding these psychological pitfalls can help investors make more rational, objective decisions and avoid common investing mistakes.</p>",
+    external_url: "https://www.investopedia.com/articles/investing/062515/psychology-investing.asp"
+  },
+  {
+    id: 18,
+    title: "What are Bonds?",
+    content: "<p>A bond is a fixed-income instrument that represents a loan made by an investor to a borrower (typically corporate or governmental). A bond could be thought of as an I.O.U. between the lender and borrower that includes the details of the loan and its payments. Bonds are used by companies, municipalities, states, and sovereign governments to finance projects and operations. Owners of bonds are debtholders, or creditors, of the issuer.</p>",
+    external_url: "https://www.investopedia.com/terms/b/bond.asp"
+  },
+  {
+    id: 19,
+    title: "Reading Financial Statements",
+    content: "<p>Financial statements are written records that convey the business activities and the financial performance of a company. The three main financial statements are the balance sheet, the income statement, and the statement of cash flows. These statements are an essential part of financial reporting and are used by investors, creditors, and management to make informed decisions about the company.</p>",
+    external_url: "https://www.investopedia.com/terms/f/financial-statements.asp"
   }
 ];
 

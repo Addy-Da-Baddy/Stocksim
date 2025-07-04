@@ -62,7 +62,7 @@ CREATE TABLE `community_purchase` (
   KEY `item_id` (`item_id`),
   CONSTRAINT `community_purchase_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   CONSTRAINT `community_purchase_ibfk_2` FOREIGN KEY (`item_id`) REFERENCES `community_shop` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -73,7 +73,11 @@ LOCK TABLES `community_purchase` WRITE;
 /*!40000 ALTER TABLE `community_purchase` DISABLE KEYS */;
 INSERT INTO `community_purchase` VALUES
 (1,12,15,'2025-06-29 06:08:25'),
-(2,12,20,'2025-06-29 14:59:22');
+(2,12,20,'2025-06-29 14:59:22'),
+(3,34,16,'2025-07-03 13:01:17'),
+(4,34,22,'2025-07-03 13:04:39'),
+(5,34,15,'2025-07-03 13:04:53'),
+(6,34,40,'2025-07-03 13:33:16');
 /*!40000 ALTER TABLE `community_purchase` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -313,7 +317,7 @@ CREATE TABLE `portfolio` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `portfolio_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -323,81 +327,10 @@ CREATE TABLE `portfolio` (
 LOCK TABLES `portfolio` WRITE;
 /*!40000 ALTER TABLE `portfolio` DISABLE KEYS */;
 INSERT INTO `portfolio` VALUES
-(1,1,'AAPL',2,269.04,'2025-06-27 16:42:08'),
-(3,3,'NFLX',9.34,225.97,'2025-06-28 06:32:16'),
-(4,3,'TSLA',2.8,420.84,'2025-06-28 06:32:16'),
-(5,3,'MSFT',3.35,537.02,'2025-06-28 06:32:16'),
-(6,4,'NFLX',9.18,916.35,'2025-06-28 06:32:16'),
-(7,4,'AMZN',8.41,948.79,'2025-06-28 06:32:16'),
-(8,4,'MSFT',1.56,766.18,'2025-06-28 06:32:16'),
-(9,4,'AAPL',6.93,671.33,'2025-06-28 06:32:16'),
-(10,5,'TSLA',4.32,736.79,'2025-06-28 06:32:16'),
-(11,5,'MSFT',5.56,741.41,'2025-06-28 06:32:16'),
-(12,6,'GOOG',1.95,418.06,'2025-06-28 06:32:16'),
-(13,6,'AAPL',4.21,184.23,'2025-06-28 06:32:16'),
-(14,7,'MSFT',3.92,658.95,'2025-06-28 06:32:16'),
-(15,7,'NFLX',7.68,429.15,'2025-06-28 06:32:16'),
-(16,7,'GOOG',7.26,703.66,'2025-06-28 06:32:16'),
-(17,7,'AMZN',1.36,177.88,'2025-06-28 06:32:16'),
-(18,8,'TSLA',9.46,876.2,'2025-06-28 06:32:16'),
-(19,8,'AMZN',2.85,364.73,'2025-06-28 06:32:16'),
-(20,8,'MSFT',1.35,110.57,'2025-06-28 06:32:16'),
-(21,9,'AMZN',1.67,964.5,'2025-06-28 06:32:17'),
-(22,9,'GOOG',5.22,575.76,'2025-06-28 06:32:17'),
-(23,9,'MSFT',4.69,187.95,'2025-06-28 06:32:17'),
-(24,9,'AAPL',1.24,511.97,'2025-06-28 06:32:17'),
-(25,10,'GOOG',6.95,892.48,'2025-06-28 06:32:17'),
-(26,10,'AMZN',4.88,225.13,'2025-06-28 06:32:17'),
-(27,11,'AMZN',2.29,473.21,'2025-06-28 06:32:17'),
-(28,11,'AAPL',6.68,494.2,'2025-06-28 06:32:17'),
-(29,11,'AAPL',3.03,899.47,'2025-06-28 06:32:17'),
-(30,11,'MSFT',7.34,350.21,'2025-06-28 06:32:17'),
-(31,12,'TSLA',2.71,755.73,'2025-06-28 06:32:17'),
-(32,12,'AAPL',7.95,980.987,'2025-06-28 13:10:49'),
-(33,12,'GOOG',9.64,296.53,'2025-06-28 06:32:17'),
-(34,13,'AMZN',8.56,223.3,'2025-06-28 06:32:28'),
-(35,13,'AAPL',9.31,201.08,'2025-06-28 06:32:28'),
-(36,14,'NFLX',7.24,1323.12,'2025-06-28 06:32:29'),
-(37,15,'AMZN',6.09,223.3,'2025-06-28 06:32:30'),
-(38,15,'NFLX',5.93,1323.12,'2025-06-28 06:32:30'),
-(39,15,'TSLA',1.73,323.63,'2025-06-28 06:32:31'),
-(40,16,'TSLA',1.01,323.63,'2025-06-28 06:32:32'),
-(41,17,'GOOG',5.14,178.27,'2025-06-28 06:32:32'),
-(42,17,'NFLX',6.31,1572.65,'2025-06-28 06:32:33'),
-(43,17,'TSLA',2.24,323.63,'2025-06-28 06:32:33'),
-(44,18,'AAPL',5.9,201.08,'2025-06-28 06:32:34'),
-(45,19,'TSLA',3.32,323.63,'2025-06-28 06:32:34'),
-(46,19,'AMZN',10.71,332.969,'2025-06-28 06:32:35'),
-(47,19,'AAPL',3.56,201.08,'2025-06-28 06:32:35'),
-(48,20,'MSFT',7.5,495.94,'2025-06-28 06:32:36'),
-(49,21,'TSLA',4.95,323.63,'2025-06-28 06:32:37'),
-(50,21,'NFLX',2.79,1323.12,'2025-06-28 06:32:37'),
-(51,22,'MSFT',6.1,495.94,'2025-06-28 06:32:38'),
-(52,22,'GOOG',2.31,178.27,'2025-06-28 06:32:38'),
-(53,23,'NFLX',2.27,1323.12,'2025-06-28 06:34:44'),
-(54,24,'AMZN',7.85,223.3,'2025-06-28 06:34:44'),
-(55,25,'AMZN',8.91,223.3,'2025-06-28 06:34:45'),
-(56,26,'NFLX',8.85,1490.57,'2025-06-28 06:34:46'),
-(57,26,'GOOG',1.83,178.27,'2025-06-28 06:34:46'),
-(58,26,'TSLA',9.44,323.63,'2025-06-28 06:34:46'),
-(59,27,'NFLX',3.35,1323.12,'2025-06-28 06:34:47'),
-(60,27,'TSLA',3.62,323.63,'2025-06-28 06:34:47'),
-(61,28,'MSFT',11.57,720.12,'2025-06-28 06:34:49'),
-(62,28,'TSLA',6.88,323.63,'2025-06-28 06:34:48'),
-(63,29,'GOOG',10.23,335.28,'2025-06-28 06:34:49'),
-(64,29,'TSLA',2.99,323.63,'2025-06-28 06:34:50'),
-(65,29,'NFLX',2.09,1323.12,'2025-06-28 06:34:50'),
-(66,29,'AMZN',7.82,223.3,'2025-06-28 06:34:50'),
-(67,30,'NFLX',3.01,1323.12,'2025-06-28 06:34:51'),
-(68,30,'AMZN',8.29,223.3,'2025-06-28 06:34:52'),
-(69,30,'AAPL',5.41,261.664,'2025-06-28 06:34:53'),
-(70,30,'MSFT',8.66,495.94,'2025-06-28 06:34:54'),
-(71,31,'TSLA',13.65,743.866,'2025-06-28 06:34:55'),
-(72,31,'GOOG',7.03,178.27,'2025-06-28 06:34:55'),
-(73,31,'AAPL',8.24,201.08,'2025-06-28 06:34:55'),
-(74,32,'TSLA',1.05,323.63,'2025-06-28 06:34:56'),
-(75,32,'AAPL',5.51,201.08,'2025-06-28 06:34:56'),
-(76,32,'NFLX',2.11,1323.12,'2025-06-28 06:34:56');
+(1,34,'AAPL',2,212.44,'2025-07-03 13:32:14'),
+(2,34,'MSFT',3,495.135,'2025-07-03 13:32:20'),
+(4,34,'BAC',2,48.87,'2025-07-03 13:32:35'),
+(5,34,'INFY',7,18.92,'2025-07-03 16:03:42');
 /*!40000 ALTER TABLE `portfolio` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -413,9 +346,11 @@ CREATE TABLE `stock_cache` (
   `symbol` varchar(10) NOT NULL,
   `price` float NOT NULL,
   `last_updated` datetime DEFAULT NULL,
+  `long_name` varchar(255) DEFAULT NULL,
+  `logo_url` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `symbol` (`symbol`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -425,9 +360,57 @@ CREATE TABLE `stock_cache` (
 LOCK TABLES `stock_cache` WRITE;
 /*!40000 ALTER TABLE `stock_cache` DISABLE KEYS */;
 INSERT INTO `stock_cache` VALUES
-(1,'TSLA',320.57,'2025-06-30 15:29:57'),
-(2,'AAPL',199.97,'2025-06-30 15:29:57'),
-(3,'GOOG',177.18,'2025-06-30 15:29:58');
+(1,'NVDA',159.502,'2025-07-03 16:06:23','NVIDIA Corporation',NULL),
+(2,'AMZN',223.29,'2025-07-03 16:06:23','Amazon.com, Inc.',NULL),
+(3,'TSLA',317.699,'2025-07-03 16:06:26','Tesla, Inc.',NULL),
+(4,'AAPL',214.45,'2025-07-03 16:06:50','Apple Inc.',NULL),
+(5,'GOOGL',178.776,'2025-07-03 16:06:23','Alphabet Inc.',NULL),
+(6,'MSFT',499.57,'2025-07-03 16:06:51','Microsoft Corporation',NULL),
+(8,'JPM',295.5,'2025-07-03 16:06:24','JPMorgan Chase & Co.',NULL),
+(10,'BAC',48.985,'2025-07-03 16:06:51','Bank of America Corporation',NULL),
+(12,'WFC',83.51,'2025-07-03 16:06:26','Wells Fargo & Company',NULL),
+(13,'MS',144.17,'2025-07-03 16:06:24','Morgan Stanley',NULL),
+(14,'GS',721.55,'2025-07-03 16:06:26','The Goldman Sachs Group, Inc.',NULL),
+(15,'PFE',25.46,'2025-07-03 16:06:26','Pfizer Inc.',NULL),
+(16,'JNJ',156.11,'2025-07-03 16:06:26','Johnson & Johnson',NULL),
+(17,'UNH',309.56,'2025-07-03 16:06:26','UnitedHealth Group Incorporated',NULL),
+(18,'HD',371.758,'2025-07-03 16:06:26','The Home Depot, Inc.',NULL),
+(19,'MCD',294.03,'2025-07-03 16:06:26','McDonald\'s Corporation',NULL),
+(20,'NKE',76.545,'2025-07-03 16:06:26','NIKE, Inc.',NULL),
+(21,'SBUX',94.095,'2025-07-03 16:06:27','Starbucks Corporation',NULL),
+(22,'WMT',98.02,'2025-07-03 16:06:27','Walmart Inc.',NULL),
+(23,'PEP',135.47,'2025-07-03 16:06:27','PepsiCo, Inc.',NULL),
+(24,'COST',986,'2025-07-03 16:06:27','Costco Wholesale Corporation',NULL),
+(25,'XOM',112.275,'2025-07-03 16:06:27','Exxon Mobil Corporation',NULL),
+(26,'ABBV',189.72,'2025-07-03 16:06:26','AbbVie Inc.',NULL),
+(27,'KO',71.255,'2025-07-03 16:06:27','The Coca-Cola Company',NULL),
+(28,'PG',160.542,'2025-07-03 16:06:27','The Procter & Gamble Company',NULL),
+(29,'MRK',81.28,'2025-07-03 16:06:26','Merck & Co., Inc.',NULL),
+(30,'TTE',62.85,'2025-07-03 16:06:27','TotalEnergies SE',NULL),
+(31,'SHEL',71.895,'2025-07-03 16:06:27','Shell plc',NULL),
+(32,'CVX',148.62,'2025-07-03 16:06:27','Chevron Corporation',NULL),
+(33,'COP',94,'2025-07-03 16:06:27','ConocoPhillips',NULL),
+(34,'BA',216.08,'2025-07-03 16:06:27','The Boeing Company',NULL),
+(35,'CAT',399.11,'2025-07-03 16:06:27','Caterpillar Inc.',NULL),
+(36,'GE',248.21,'2025-07-03 16:06:27','GE Aerospace',NULL),
+(37,'HON',240.445,'2025-07-03 16:06:27','Honeywell International Inc.',NULL),
+(38,'LMT',461.527,'2025-07-03 16:06:27','Lockheed Martin Corporation',NULL),
+(39,'AMT',222.115,'2025-07-03 16:06:27','American Tower Corporation',NULL),
+(40,'PLD',108.09,'2025-07-03 16:06:27','Prologis, Inc.',NULL),
+(41,'CCI',102.56,'2025-07-03 16:06:28','Crown Castle Inc.',NULL),
+(42,'EQIX',790.95,'2025-07-03 16:06:28','Equinix, Inc.',NULL),
+(43,'SPG',167.12,'2025-07-03 16:06:28','Simon Property Group, Inc.',NULL),
+(44,'NEE',74.51,'2025-07-03 16:06:28','NextEra Energy, Inc.',NULL),
+(45,'SO',91.57,'2025-07-03 16:06:28','The Southern Company',NULL),
+(46,'DUK',117.53,'2025-07-03 16:06:28','Duke Energy Corporation',NULL),
+(47,'D',57.08,'2025-07-03 16:06:28','Dominion Energy, Inc.',NULL),
+(48,'AEP',103.86,'2025-07-03 16:06:28','American Electric Power Company, Inc.',NULL),
+(49,'NFLX',1302.08,'2025-07-03 16:06:28','Netflix, Inc.',NULL),
+(50,'META',718.74,'2025-07-03 16:06:28','Meta Platforms, Inc.',NULL),
+(51,'DIS',123.9,'2025-07-03 16:06:28','The Walt Disney Company',NULL),
+(52,'CMCSA',36.275,'2025-07-03 16:06:28','Comcast Corporation',NULL),
+(53,'TMUS',240.25,'2025-07-03 16:06:28','T-Mobile US, Inc.',NULL),
+(54,'INFY',18.915,'2025-07-03 16:06:51','Infosys Limited',NULL);
 /*!40000 ALTER TABLE `stock_cache` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -449,7 +432,7 @@ CREATE TABLE `transactions` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `transactions_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=92 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=108 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -549,7 +532,23 @@ INSERT INTO `transactions` VALUES
 (88,2,'AAPL',1,201.08,'BUY','2025-06-28 06:35:17'),
 (89,2,'AAPL',1,201.08,'SELL','2025-06-28 06:35:18'),
 (90,12,'AAPL',1,201.08,'BUY','2025-06-28 13:10:48'),
-(91,12,'AAPL',1,201.08,'SELL','2025-06-28 13:10:49');
+(91,12,'AAPL',1,201.08,'SELL','2025-06-28 13:10:49'),
+(92,34,'AAPL',1,212.44,'BUY','2025-07-03 06:45:18'),
+(93,34,'AAPL',1,212.44,'BUY','2025-07-03 06:45:18'),
+(94,34,'MSFT',1,491.09,'BUY','2025-07-03 06:49:58'),
+(95,34,'AMZN',2,219.92,'BUY','2025-07-03 07:04:18'),
+(96,34,'TSLA',7,315.65,'BUY','2025-07-03 07:10:56'),
+(97,34,'JPM',7,292,'BUY','2025-07-03 09:47:29'),
+(98,34,'BAC',3,48.71,'BUY','2025-07-03 13:06:18'),
+(99,34,'AAPL',2,212.44,'BUY','2025-07-03 13:32:14'),
+(100,34,'MSFT',3,495.135,'BUY','2025-07-03 13:32:20'),
+(101,34,'GOOGL',10,179.119,'BUY','2025-07-03 13:32:29'),
+(102,34,'BAC',2,48.87,'BUY','2025-07-03 13:32:35'),
+(103,34,'GOOGL',4,179.36,'SELL','2025-07-03 13:32:58'),
+(104,34,'GOOGL',5,179.26,'SELL','2025-07-03 13:33:50'),
+(105,34,'GOOGL',0.999999,178.3,'SELL','2025-07-03 14:02:58'),
+(106,34,'INFY',10,18.92,'BUY','2025-07-03 16:03:13'),
+(107,34,'INFY',3,18.915,'SELL','2025-07-03 16:03:42');
 /*!40000 ALTER TABLE `transactions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -563,7 +562,12 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(50) NOT NULL,
+  `first_name` varchar(50) DEFAULT NULL,
+  `last_name` varchar(50) DEFAULT NULL,
   `email` varchar(100) NOT NULL,
+  `phone_number` varchar(20) DEFAULT NULL,
+  `date_of_birth` date DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
   `password_hash` varchar(256) DEFAULT NULL,
   `balance` float DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
@@ -571,7 +575,7 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -581,38 +585,41 @@ CREATE TABLE `users` (
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` VALUES
-(1,'demo','demo@email.com','hashed_dummy_pw',50000,'2025-06-27 16:19:20',150),
-(2,'apitestuser','apitestuser@example.com','scrypt:32768:8:1$NYv5sqFJfp8VVPcV$99f440bb6e877e1a32fcd398fda36084fb7f0fae37e976bd1de544836b3c59b28a9786f6e906153b028ea5570b6085ec7f039cabedbd20960a330a0fbc564e79',10000,'2025-06-28 06:16:27',0),
-(3,'matthewbrown','howardjennifer@example.net','scrypt:32768:8:1$F3NLYgQjB3aaF8LF$1c73b0f9fb786d6e2d2354fbf80d1f753420719ba3dbc02ce1d27c8d93ebfe6790ae36f42ab1c01195283f48d6ebe89180ff97f9daf2b1481ad616d7b69198f9',53661.1,'2025-06-28 06:32:16',0),
-(4,'rebekahgarcia','danielreid@example.net','scrypt:32768:8:1$3gnUr9TE8gob8BHP$c2adca94fdb84fc30fb7be6fd27c4696d8805254ba8c3099fde0b95af4102e5b9ca08c8dd465924ab9d019409ed301bdd2b0955cd973b15fb1a45db6e0e7ca65',69957.5,'2025-06-28 06:32:16',0),
-(5,'onunez','danielmoore@example.com','scrypt:32768:8:1$DE8IvVDWlEsCIGT0$1445a90cf0e9c656744546ea452078b7d463487b0231031557e31ad75ecdba37e1d6a51019a6004fc650cb11d4323cd415d2f887d08d2b1a1ac409776fecb4d8',70120.6,'2025-06-28 06:32:16',0),
-(6,'anita00','robertsonmarissa@example.com','scrypt:32768:8:1$Gffvu9Tf2UNDOJt5$f85c7e85cc610ffb4b51089afa50d8db5fcae841b529c44d85e8b30a3e6a0ebedf8bf5ebac9d8696056e2b5f7b469b8df3f85783dba408164efa8d95c92256f5',69520.6,'2025-06-28 06:32:16',0),
-(7,'bavery','robertzamora@example.com','scrypt:32768:8:1$7Q0QtEwYGrweJrnR$af5d211d842b2c5f65744b45ea3d232543aa99060e52a5cbafe11fb66f59dad0cb21e2fde5dce098afb31577b373361a24a0003353a4347d31209e9af647ae95',81591.9,'2025-06-28 06:32:16',0),
-(8,'crystal21','hwebb@example.org','scrypt:32768:8:1$Nu10ArtUkp1jcgcd$52b755ed568bb8af57ae86c677a42805b7a4c256a77771b8dd5d2b46781c8bfc653c9d02713dd3aeb3baf8608d87072ea67cd018a09ba9d6ed4467aa063ff3f7',97615.5,'2025-06-28 06:32:16',0),
-(9,'bwhitaker','jacob81@example.com','scrypt:32768:8:1$XV2W273y9wTlCsRW$7ac211706e4852c54e38e98d71fea96f5c65a9bf09a390b83131f99261e534f1106bc3e4782e383bd94614306c904f87761b3ecb6349b8a59dfe796f9f8be780',98937,'2025-06-28 06:32:16',0),
-(10,'meyersthomas','vchen@example.com','scrypt:32768:8:1$ErKXu8fV3jNquApB$7d6c09a32f55b4545bb4f2b27147009b0f591f9425660266b5408f9fea5b9db8bb1f9368b9310cbbb517bad6b49a934d6d2c035d9a98008f300521c6b567347f',92623.4,'2025-06-28 06:32:17',0),
-(11,'mclaughlinjason','ljohnson@example.net','scrypt:32768:8:1$WpYiPMw3QLIC2Kw1$4efecf7ad5992e194d57b08c8900e1079efb735492f524179dd2247d3d878d13dc1fc90837059e66bf3ead15dd981fbdcb38e3e57201b50b4b6e0139b11b0525',85484.7,'2025-06-28 06:32:17',0),
-(12,'randymartinez','juan06@example.net','scrypt:32768:8:1$8Hkt4JzGGLeukrkT$c3176225796addf4e9b2537e1ae228c215cb836725eba40c1967b69626291ef60ea46fc9f8af7c48765445ee9a90c5a373270a907860de0b7804c44317827169',95269.6,'2025-06-28 06:32:17',4),
-(13,'shahtimothy','lking@example.com','scrypt:32768:8:1$Wn8NK7ABAO3kERC8$ba7969a39fb777e1e17435098930b5e37c13983e3b60fbe53e9b835e21c6b8f834319fb69c9194e927f6d7886b5e6f3330b9996fcb1f5162edc12ad45386e580',6216.5,'2025-06-28 06:32:26',0),
-(14,'jackbradley','angela70@example.org','scrypt:32768:8:1$Kn5BW4WrZpuk23XI$2dc26e8fb84f127309c38dbd3a4b4f36df38a1fd0a5f6d9cb26385b5dee1fefa4bd206f3743b05d5e1e0250f12cd09e90774c18d4757b2a1ecdce15378cda81d',420.611,'2025-06-28 06:32:28',0),
-(15,'robinrobinson','bgarcia@example.net','scrypt:32768:8:1$CI1S7DF0tVixaP4Z$0e8f964225cfd5068174c6d4297c78fbdaeec5d62034ef39b0e00c9f12ec50166647deb63275af4e65e892481ac958c7d416be65742d2ff8617be5a2ff7577a1',234.118,'2025-06-28 06:32:30',0),
-(16,'shortvincent','philipallen@example.net','scrypt:32768:8:1$1oaiVU8Ki5tBi4I8$18f02ca717f477db9caf89a8cfed81a6bfea42960389a55c073c787bcbdf9d4423ea6da3bbafb3a28fb22c3bafc0847e51f6f407824a94bf1614247d37bee72f',9673.13,'2025-06-28 06:32:31',0),
-(17,'wmckenzie','schavez@example.net','scrypt:32768:8:1$ywmfKOK8rh1Un6YS$6ae1b32c1c6b3a1f57216cacd1c2a18e9c962b90286ec86c3559ab832d71a15fb87d9dab0ac748da8a256b13c8879c190586ac66a3cf5c1d88547f9285910eea',9.87579,'2025-06-28 06:32:32',0),
-(18,'butlerdaniel','zwilliams@example.net','scrypt:32768:8:1$B5IUVATvfGKAPf07$2ced7c6b5de7f0d725364519500e619298e9107fd00c037e1c188e9d301b393844ca9c5cf3eefa737f90b2af79dd76a9bf3a01ffbe3a2b214b2be80f1026face',8813.63,'2025-06-28 06:32:33',0),
-(19,'zbrowning','davidsonmargaret@example.net','scrypt:32768:8:1$3fq8lR0o9oluGG6h$3d9463785e491ea5c63b7755409030e535bc7cb004bce2e36b7b9f3387aa42f8f5662e6ab01f184ebb0450fef8b980be6397da603c81fdf7c72e8054f37d25c3',5818.16,'2025-06-28 06:32:34',0),
-(20,'lisasanders','hgutierrez@example.net','scrypt:32768:8:1$LUL9qBdGB5V1PK87$9d27de6bfb93c43c1079b832282047f419bcecdd2f78230fc2f0882342815df8de526ccb20a064f6e57459de81d4afc42e293d5b814a2c79097315ca585c8815',6280.45,'2025-06-28 06:32:35',0),
-(21,'victoria73','hwilliams@example.com','scrypt:32768:8:1$jO0hCD8tS1fbypV1$3723a3890b81a41ffeda1f01fe65a9945af1396969007d1b1daf2d0f71d2c8548231dccc538e0122e0ef67b1a47bfdeba8de48710e7131f5fa4c5a65f9f76e3f',4706.53,'2025-06-28 06:32:36',0),
-(22,'ythomas','osantos@example.net','scrypt:32768:8:1$FoKliChcKh1tA7lU$cba78d5a037be6b3b353be063a4e64c89bb59a9b5d581037d1796088bd9c9be518dda6eb705139489e9ac9e5343bbdb6bd20a33b9b043b2a952a611094154541',6562.97,'2025-06-28 06:32:37',0),
-(23,'hillcarolyn','shannon51@example.com','scrypt:32768:8:1$KhiMN2th55MLuER2$31aacbcd2cbe6ac11d0c40253f433d0ba4bcc1273f6c88b34b574c6dd6af3269266efc0efd2609aa2d16f31302ee3022955e5aefa000d26490cc4ed52c9da384',96996.5,'2025-06-28 06:34:43',0),
-(24,'adammeyer','toddkiara@example.com','scrypt:32768:8:1$GSqSXyEvchNvMBUD$d0b739b3de7935033fba2f0b7389ebec55e97850c300eb7adbd9e26f34033e152f33fc5c688477bbebaadc48eb04dac6e5b5ac4572f9c2abb51bad4271597ccf',98247.1,'2025-06-28 06:34:44',0),
-(25,'audreycortez','justinhale@example.com','scrypt:32768:8:1$JHUqBhrevWGZUgyJ$c106b0280de0d760c690a71c495827d2b9db67e25d0bdca419313428ffdaf3a29d10976448ccb60f0ff0dba70e30946b4bcae9fe04ef86605cf76c7be04229ad',98010.4,'2025-06-28 06:34:44',0),
-(26,'mcdowellmeghan','jennifer99@example.net','scrypt:32768:8:1$eRYzyeuHRbmQslin$5abdbc2256ab5f72dd4691d36125a46160cd09af538488439087a54a89e7749d0143a7f76dff37eeabdebb8a543107b1edf932903de801e0e01786e16fd2d4d4',84909.1,'2025-06-28 06:34:45',0),
-(27,'christopherarmstrong','michellehoward@example.com','scrypt:32768:8:1$p2nVFOqdvzFqPuzP$347dfa046a1ae71d4d638f6b7094ec4b587f8ce2b6e5ea35dc8ea26ccd991e0b2acf4a9637e1615e9c45efac57a80fbb2a3665a524095aa4598a3a72fb8e7077',94396,'2025-06-28 06:34:46',0),
-(28,'mhernandez','wcollier@example.net','scrypt:32768:8:1$AdywM1nYyp96vQz9$b9fd4bbb444656fdaf11005045a26e9cf5acce5e7e4e08659f552e6a528a3064c01bfd6e628e1b0614f46646f4e79b0754f85f0a157f9356b3cdab58d69652d5',92035.3,'2025-06-28 06:34:47',0),
-(29,'vchurch','erinsummers@example.org','scrypt:32768:8:1$Yh2uxDQRZn4uMl7z$eebcf9276c92a9b67131001f27abf27d6cf36dc5aaea4ca02140da223ee09315a98788fac107a00c1cc1848a2322c4968a0276e3c1faf97e86f3ef7a18a05327',92697.1,'2025-06-28 06:34:49',0),
-(30,'josereed','norrisana@example.com','scrypt:32768:8:1$pNpfQIjeqz9GS9wA$f62d0f858c5ba0a6917249e0e0889524df217b9007019ab4ae8af670abd43a945ced6f332203434d2c795f5e0e0c5dc73492e5c3d3c23314fa39f50dd67d6a57',88783.5,'2025-06-28 06:34:50',0),
-(31,'michael04','cindy80@example.org','scrypt:32768:8:1$aOx9k0oH9lYC0DnL$0b61b61d62b926ec15c4afb288b29f20e752694e67b6864e05d130c07ff63f283c73f0788c4f0f14f0d391283c18b819c4bd672e3d0e7c403e0c87914796f47e',92672.4,'2025-06-28 06:34:54',0),
-(32,'nchan','gmartinez@example.org','scrypt:32768:8:1$e3NOH8DzTzB5TWE8$090f81481659020f3cfae492bce503b66910f291a30809cbd2e6a256f79dfece7445486bfaf3bb4e0b55e1d02e5c4257cb61d8b4a7d243501c31b9b3fabef75f',95760.4,'2025-06-28 06:34:55',0);
+(1,'demo','Zinal','Rana','demo@email.com','6426637717','1993-08-23','06/90, Bora Chowk, Coimbatore 953100','hashed_dummy_pw',50000,'2025-06-27 16:19:20',150),
+(2,'apitestuser','Forum','Kara','apitestuser@example.com','1389854726','1947-08-25','66/576, Deo Road, Bhiwandi 135935','scrypt:32768:8:1$NYv5sqFJfp8VVPcV$99f440bb6e877e1a32fcd398fda36084fb7f0fae37e976bd1de544836b3c59b28a9786f6e906153b028ea5570b6085ec7f039cabedbd20960a330a0fbc564e79',10000,'2025-06-28 06:16:27',0),
+(3,'matthewbrown','Anusha','Dhillon','howardjennifer@example.net','08516468795','1974-06-14','88, Pathak Road, Shahjahanpur 289766','scrypt:32768:8:1$F3NLYgQjB3aaF8LF$1c73b0f9fb786d6e2d2354fbf80d1f753420719ba3dbc02ce1d27c8d93ebfe6790ae36f42ab1c01195283f48d6ebe89180ff97f9daf2b1481ad616d7b69198f9',53661.1,'2025-06-28 06:32:16',0),
+(4,'rebekahgarcia','Urishilla','Pandey','danielreid@example.net','06125849046','1959-09-01','H.No. 97, Rao Road, Panipat 837957','scrypt:32768:8:1$3gnUr9TE8gob8BHP$c2adca94fdb84fc30fb7be6fd27c4696d8805254ba8c3099fde0b95af4102e5b9ca08c8dd465924ab9d019409ed301bdd2b0955cd973b15fb1a45db6e0e7ca65',69957.5,'2025-06-28 06:32:16',0),
+(5,'onunez','Aashi','Dara','danielmoore@example.com','+916415263104','1987-06-15','79/74, Pall Path, Tadepalligudem-107025','scrypt:32768:8:1$DE8IvVDWlEsCIGT0$1445a90cf0e9c656744546ea452078b7d463487b0231031557e31ad75ecdba37e1d6a51019a6004fc650cb11d4323cd415d2f887d08d2b1a1ac409776fecb4d8',70120.6,'2025-06-28 06:32:16',0),
+(6,'anita00','Veda','Hari','robertsonmarissa@example.com','3099759360','2006-06-28','13/20, Baria Ganj, Lucknow 461665','scrypt:32768:8:1$Gffvu9Tf2UNDOJt5$f85c7e85cc610ffb4b51089afa50d8db5fcae841b529c44d85e8b30a3e6a0ebedf8bf5ebac9d8696056e2b5f7b469b8df3f85783dba408164efa8d95c92256f5',69520.6,'2025-06-28 06:32:16',0),
+(7,'bavery','Aarnav','Bhargava','robertzamora@example.com','7921196308','2005-04-15','58/94, Mani, Raiganj-754175','scrypt:32768:8:1$7Q0QtEwYGrweJrnR$af5d211d842b2c5f65744b45ea3d232543aa99060e52a5cbafe11fb66f59dad0cb21e2fde5dce098afb31577b373361a24a0003353a4347d31209e9af647ae95',81591.9,'2025-06-28 06:32:16',0),
+(8,'crystal21','Saumya','Dutt','hwebb@example.org','01745767035','1969-06-07','H.No. 964, Badal Ganj, Vijayawada-699350','scrypt:32768:8:1$Nu10ArtUkp1jcgcd$52b755ed568bb8af57ae86c677a42805b7a4c256a77771b8dd5d2b46781c8bfc653c9d02713dd3aeb3baf8608d87072ea67cd018a09ba9d6ed4467aa063ff3f7',97615.5,'2025-06-28 06:32:16',0),
+(9,'bwhitaker','Adya','Om','jacob81@example.com','+917649316626','2002-09-03','H.No. 05, Padmanabhan Chowk, Shimoga 810312','scrypt:32768:8:1$XV2W273y9wTlCsRW$7ac211706e4852c54e38e98d71fea96f5c65a9bf09a390b83131f99261e534f1106bc3e4782e383bd94614306c904f87761b3ecb6349b8a59dfe796f9f8be780',98937,'2025-06-28 06:32:16',0),
+(10,'meyersthomas','Charvi','Rau','vchen@example.com','09405153937','1947-08-09','836, Oak Path, Anantapur 942642','scrypt:32768:8:1$ErKXu8fV3jNquApB$7d6c09a32f55b4545bb4f2b27147009b0f591f9425660266b5408f9fea5b9db8bb1f9368b9310cbbb517bad6b49a934d6d2c035d9a98008f300521c6b567347f',92623.4,'2025-06-28 06:32:17',0),
+(11,'mclaughlinjason','Bhavini','Kata','ljohnson@example.net','7542545866','1988-01-30','73/54, Borah Ganj, Aurangabad 355752','scrypt:32768:8:1$WpYiPMw3QLIC2Kw1$4efecf7ad5992e194d57b08c8900e1079efb735492f524179dd2247d3d878d13dc1fc90837059e66bf3ead15dd981fbdcb38e3e57201b50b4b6e0139b11b0525',85484.7,'2025-06-28 06:32:17',0),
+(12,'randymartinez','Madhavi','Desai','juan06@example.net','+912670122668','1953-08-19','H.No. 460, Sethi Path, Kolhapur 628975','scrypt:32768:8:1$8Hkt4JzGGLeukrkT$c3176225796addf4e9b2537e1ae228c215cb836725eba40c1967b69626291ef60ea46fc9f8af7c48765445ee9a90c5a373270a907860de0b7804c44317827169',95269.6,'2025-06-28 06:32:17',4),
+(13,'shahtimothy','Harish','Vasa','lking@example.com','01280562276','1988-06-28','52/75, Bir Path, Kishanganj-613185','scrypt:32768:8:1$Wn8NK7ABAO3kERC8$ba7969a39fb777e1e17435098930b5e37c13983e3b60fbe53e9b835e21c6b8f834319fb69c9194e927f6d7886b5e6f3330b9996fcb1f5162edc12ad45386e580',6216.5,'2025-06-28 06:32:26',0),
+(14,'jackbradley','Qarin','Chawla','angela70@example.org','5625202291','1994-11-04','67/562, Kapadia Street, Guntakal 228764','scrypt:32768:8:1$Kn5BW4WrZpuk23XI$2dc26e8fb84f127309c38dbd3a4b4f36df38a1fd0a5f6d9cb26385b5dee1fefa4bd206f3743b05d5e1e0250f12cd09e90774c18d4757b2a1ecdce15378cda81d',420.611,'2025-06-28 06:32:28',0),
+(15,'robinrobinson','Libni','Purohit','bgarcia@example.net','1130263238','1995-07-09','05/049, Goel Path, Miryalaguda 080661','scrypt:32768:8:1$CI1S7DF0tVixaP4Z$0e8f964225cfd5068174c6d4297c78fbdaeec5d62034ef39b0e00c9f12ec50166647deb63275af4e65e892481ac958c7d416be65742d2ff8617be5a2ff7577a1',234.118,'2025-06-28 06:32:30',0),
+(16,'shortvincent','Omya','Barad','philipallen@example.net','5472136501','1959-04-11','H.No. 061, Pillay Street, Singrauli-846153','scrypt:32768:8:1$1oaiVU8Ki5tBi4I8$18f02ca717f477db9caf89a8cfed81a6bfea42960389a55c073c787bcbdf9d4423ea6da3bbafb3a28fb22c3bafc0847e51f6f407824a94bf1614247d37bee72f',9673.13,'2025-06-28 06:32:31',0),
+(17,'wmckenzie','Ekbal','Wali','schavez@example.net','05589729424','1987-10-01','213, Sani, Kavali 655449','scrypt:32768:8:1$ywmfKOK8rh1Un6YS$6ae1b32c1c6b3a1f57216cacd1c2a18e9c962b90286ec86c3559ab832d71a15fb87d9dab0ac748da8a256b13c8879c190586ac66a3cf5c1d88547f9285910eea',9.87579,'2025-06-28 06:32:32',0),
+(18,'butlerdaniel','Fitan','Nayar','zwilliams@example.net','7361972930','1984-09-23','94, Mani Ganj, Anand-576391','scrypt:32768:8:1$B5IUVATvfGKAPf07$2ced7c6b5de7f0d725364519500e619298e9107fd00c037e1c188e9d301b393844ca9c5cf3eefa737f90b2af79dd76a9bf3a01ffbe3a2b214b2be80f1026face',8813.63,'2025-06-28 06:32:33',0),
+(19,'zbrowning','Finn','Raj','davidsonmargaret@example.net','09468276968','1967-02-21','H.No. 93, Tara Chowk, Mirzapur-548212','scrypt:32768:8:1$3fq8lR0o9oluGG6h$3d9463785e491ea5c63b7755409030e535bc7cb004bce2e36b7b9f3387aa42f8f5662e6ab01f184ebb0450fef8b980be6397da603c81fdf7c72e8054f37d25c3',5818.16,'2025-06-28 06:32:34',0),
+(20,'lisasanders','Nirja','Pathak','hgutierrez@example.net','7703480875','1945-09-10','155, Kalla Road, Dewas-824127','scrypt:32768:8:1$LUL9qBdGB5V1PK87$9d27de6bfb93c43c1079b832282047f419bcecdd2f78230fc2f0882342815df8de526ccb20a064f6e57459de81d4afc42e293d5b814a2c79097315ca585c8815',6280.45,'2025-06-28 06:32:35',0),
+(21,'victoria73','Chakrika','Suresh','hwilliams@example.com','04400334465','1969-05-11','426, Mandal, Guwahati 675514','scrypt:32768:8:1$jO0hCD8tS1fbypV1$3723a3890b81a41ffeda1f01fe65a9945af1396969007d1b1daf2d0f71d2c8548231dccc538e0122e0ef67b1a47bfdeba8de48710e7131f5fa4c5a65f9f76e3f',4706.53,'2025-06-28 06:32:36',0),
+(22,'ythomas','Daniel','Dara','osantos@example.net','+913878726418','2003-03-03','50/74, Malhotra, Kirari Suleman Nagar 765841','scrypt:32768:8:1$FoKliChcKh1tA7lU$cba78d5a037be6b3b353be063a4e64c89bb59a9b5d581037d1796088bd9c9be518dda6eb705139489e9ac9e5343bbdb6bd20a33b9b043b2a952a611094154541',6562.97,'2025-06-28 06:32:37',0),
+(23,'hillcarolyn','Naveen','Goel','shannon51@example.com','07351014628','2000-06-06','70/89, Saraf Path, Bally 036894','scrypt:32768:8:1$KhiMN2th55MLuER2$31aacbcd2cbe6ac11d0c40253f433d0ba4bcc1273f6c88b34b574c6dd6af3269266efc0efd2609aa2d16f31302ee3022955e5aefa000d26490cc4ed52c9da384',96996.5,'2025-06-28 06:34:43',0),
+(24,'adammeyer','Jagrati','Ghose','toddkiara@example.com','+919852884057','1999-01-20','H.No. 06, Venkatesh Circle, Deoghar-912309','scrypt:32768:8:1$GSqSXyEvchNvMBUD$d0b739b3de7935033fba2f0b7389ebec55e97850c300eb7adbd9e26f34033e152f33fc5c688477bbebaadc48eb04dac6e5b5ac4572f9c2abb51bad4271597ccf',98247.1,'2025-06-28 06:34:44',0),
+(25,'audreycortez','Varenya','De','justinhale@example.com','03099013717','1989-03-14','533, Sathe, Bhusawal 229350','scrypt:32768:8:1$JHUqBhrevWGZUgyJ$c106b0280de0d760c690a71c495827d2b9db67e25d0bdca419313428ffdaf3a29d10976448ccb60f0ff0dba70e30946b4bcae9fe04ef86605cf76c7be04229ad',98010.4,'2025-06-28 06:34:44',0),
+(26,'mcdowellmeghan','Bhavini','Buch','jennifer99@example.net','+911365739765','1971-01-19','438, Kakar Ganj, Narasaraopet-072902','scrypt:32768:8:1$eRYzyeuHRbmQslin$5abdbc2256ab5f72dd4691d36125a46160cd09af538488439087a54a89e7749d0143a7f76dff37eeabdebb8a543107b1edf932903de801e0e01786e16fd2d4d4',84909.1,'2025-06-28 06:34:45',0),
+(27,'christopherarmstrong','Girik','Mallick','michellehoward@example.com','+912871939185','1963-10-25','40/42, Suresh, Thoothukudi 733521','scrypt:32768:8:1$p2nVFOqdvzFqPuzP$347dfa046a1ae71d4d638f6b7094ec4b587f8ce2b6e5ea35dc8ea26ccd991e0b2acf4a9637e1615e9c45efac57a80fbb2a3665a524095aa4598a3a72fb8e7077',94396,'2025-06-28 06:34:46',0),
+(28,'mhernandez','Chatresh','Bali','wcollier@example.net','+919047233922','1989-01-29','415, Rajan Ganj, Hyderabad-657011','scrypt:32768:8:1$AdywM1nYyp96vQz9$b9fd4bbb444656fdaf11005045a26e9cf5acce5e7e4e08659f552e6a528a3064c01bfd6e628e1b0614f46646f4e79b0754f85f0a157f9356b3cdab58d69652d5',92035.3,'2025-06-28 06:34:47',0),
+(29,'vchurch','Zaitra','Pandit','erinsummers@example.org','5282557209','1986-03-20','04, Shenoy Nagar, Kanpur 332449','scrypt:32768:8:1$Yh2uxDQRZn4uMl7z$eebcf9276c92a9b67131001f27abf27d6cf36dc5aaea4ca02140da223ee09315a98788fac107a00c1cc1848a2322c4968a0276e3c1faf97e86f3ef7a18a05327',92697.1,'2025-06-28 06:34:49',0),
+(30,'josereed','Gopal','Gulati','norrisana@example.com','+919889004949','1970-03-12','H.No. 751, Sarna Path, Uluberia 925596','scrypt:32768:8:1$pNpfQIjeqz9GS9wA$f62d0f858c5ba0a6917249e0e0889524df217b9007019ab4ae8af670abd43a945ced6f332203434d2c795f5e0e0c5dc73492e5c3d3c23314fa39f50dd67d6a57',88783.5,'2025-06-28 06:34:50',0),
+(31,'michael04','Turvi','Barad','cindy80@example.org','1747458500','1950-07-30','09/05, Goswami Road, Panihati 650832','scrypt:32768:8:1$aOx9k0oH9lYC0DnL$0b61b61d62b926ec15c4afb288b29f20e752694e67b6864e05d130c07ff63f283c73f0788c4f0f14f0d391283c18b819c4bd672e3d0e7c403e0c87914796f47e',92672.4,'2025-06-28 06:34:54',0),
+(32,'nchan','Guneet','Mukherjee','gmartinez@example.org','01193948030','1975-08-13','17/072, Iyengar Road, Madanapalle-903838','scrypt:32768:8:1$e3NOH8DzTzB5TWE8$090f81481659020f3cfae492bce503b66910f291a30809cbd2e6a256f79dfece7445486bfaf3bb4e0b55e1d02e5c4257cb61d8b4a7d243501c31b9b3fabef75f',95760.4,'2025-06-28 06:34:55',0),
+(33,'testuser','Liam','Tata','testuser@example.com','07780417202','1990-03-25','92/719, Pau Road, Secunderabad-500561','scrypt:32768:8:1$VHybmIVQB3I9J71W$571937e302c98fdd9b2b4cefd0f3dd53a7f90ab64d81d861d572cddf53008dc1ca94a6f0e36cf31694872af90e5a3c3b36e2ece8d726ca161d024aef2b5ac1ed',100000,'2025-07-01 15:49:54',0),
+(34,'first_user','Adriteyo','Das','firstuser@email.com','01763177410','1985-09-09','H.No. 342, Golla Path, Warangal-907198','scrypt:32768:8:1$3S9BQdTn0BH5sQPS$d2849b5cf90b5f02e6a944c24a92069d67781a81783d917564288d3806804efd2831d3e982b1eab491f69c8f76902e7bb0dfe08a04e26eba01d3eb000167582f',91270,'2025-07-03 03:00:14',16),
+(35,'carlos','Carlos','Gonzalez','carlos@gmail.com','123456789','1973-05-17','12345','scrypt:32768:8:1$Y9bBjTqpwOs1tBY7$4c144af243d43aded941758a59b6504eec947ffb03cee1dc86d99de45a95b11281f21da8c574779ae63d0a4820841fd68cdefe6345e629ce7acb01883ead2453',100000,'2025-07-03 14:07:31',0);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -625,4 +632,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-07-01 11:21:13
+-- Dump completed on 2025-07-04 10:28:39

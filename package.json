@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "jwt-decode": "^4.0.0",
-    "lightweight-charts": "^5.0.8",
-    "recharts": "^3.0.2"
-  }
-}
